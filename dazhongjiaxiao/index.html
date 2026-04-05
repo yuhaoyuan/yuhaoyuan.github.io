@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>大众驾校 - 招生优惠活动</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #4c71eb;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 450px;
+  }
+
+  /* ===== BG Image Header ===== */
+  .bg-header {
+    position: relative;
+    width: 100%;
+  }
+
+  .bg-header img {
+    width: 100%;
+    display: block;
+  }
+
+  .logo {
+    position: absolute;
+    top: 3%;
+    left: 5%;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid #e63c2f;
+    border-radius: 6px;
+    padding: 4px 10px;
+  }
+
+  .logo span {
+    font-family: "STKaiti", "KaiTi", "楷体", "AR PL UKai CN", serif;
+    font-size: clamp(14px, 4vw, 18px);
+    font-weight: 900;
+    color: #e63c2f;
+    letter-spacing: 2px;
+  }
+
+  .hero-text {
+    position: absolute;
+    top: 11%;
+    left: 0; right: 0;
+    text-align: center;
+    padding: 0 8%;
+    z-index: 2;
+  }
+
+  .hero-text h1 {
+    font-family: "STKaiti", "KaiTi", "楷体", "AR PL UKai CN", serif;
+    font-size: clamp(30px, 8.5vw, 44px);
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 3px 16px rgba(0,0,0,0.3);
+    line-height: 1.45;
+    letter-spacing: 3px;
+  }
+
+  /* ===== Sections ===== */
+  .content-area {
+    background: #4c71eb;
+    padding: 0 16px 20px;
+    margin-top: -2px;
+  }
+
+  .section {
+    margin-bottom: 20px;
+  }
+
+  .section-tab {
+    display: flex;
+    justify-content: center;
+    margin-bottom: -1px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-tab span {
+    background: linear-gradient(135deg, #ff8c42, #ff6b35);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 9px 36px;
+    border-radius: 22px 22px 0 0;
+    letter-spacing: 3px;
+    box-shadow: 0 -2px 8px rgba(255,107,53,0.3);
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  /* ===== Package Tabs ===== */
+  .pkg-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 16px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 3px;
+  }
+
+  .pkg-tab {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #999;
+    padding: 10px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .pkg-tab.active {
+    background: linear-gradient(135deg, #ff8c42, #ff6b35);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(255,107,53,0.3);
+  }
+
+  .pkg-panel {
+    display: none;
+  }
+
+  .pkg-panel.active {
+    display: block;
+  }
+
+  /* ===== Card 1: Activity ===== */
+  .price-block {
+    text-align: center;
+    padding: 4px 0 10px;
+  }
+
+  .price-block .line1 {
+    font-size: clamp(20px, 5.5vw, 26px);
+    font-weight: 800;
+    color: #e63c2f;
+    letter-spacing: 2px;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .price-row .currency {
+    font-size: clamp(22px, 6vw, 28px);
+    font-weight: 800;
+    color: #e63c2f;
+  }
+
+  .price-row .amount {
+    font-size: clamp(52px, 14vw, 68px);
+    font-weight: 900;
+    color: #e63c2f;
+    font-family: "DIN Alternate", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1;
+  }
+
+  .price-row .suffix {
+    font-size: clamp(18px, 5vw, 24px);
+    font-weight: 800;
+    color: #e63c2f;
+    margin-left: 4px;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 14px 0;
+  }
+
+  .badge {
+    background: linear-gradient(135deg, #fff3ed, #ffe8db);
+    color: #e63c2f;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 16px;
+    border-radius: 20px;
+    border: 1px solid #ffcdb8;
+  }
+
+  .card-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #eee, transparent);
+    margin: 16px 0;
+  }
+
+  .highlight-row {
+    text-align: center;
+    padding: 6px 0 2px;
+  }
+
+  .highlight-row .text {
+    font-size: clamp(24px, 6.5vw, 30px);
+    font-weight: 800;
+    background: linear-gradient(135deg, #ff6b35, #e63c2f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 3px;
+  }
+
+  .highlight-row .sub {
+    font-size: 13px;
+    color: #999;
+    margin-top: 8px;
+  }
+
+  /* ===== Rules Block ===== */
+  .rule-block {
+    text-align: center;
+  }
+
+  .rule-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .rule-item {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .rule-item strong {
+    color: #e63c2f;
+    font-size: 16px;
+  }
+
+  .contract-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #4c71eb, #3355cc);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 24px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(76,113,235,0.3);
+    transition: opacity 0.2s;
+  }
+
+  .contract-btn:active { opacity: 0.8; }
+
+  .contract-icon { font-size: 16px; }
+
+  /* ===== Card 2: Carousel ===== */
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.35s ease;
+  }
+
+  .carousel-slide {
+    min-width: 100%;
+    height: 220px;
+    flex-shrink: 0;
+  }
+
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .carousel-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ddd;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .carousel-dots .dot.active {
+    background: linear-gradient(135deg, #ff8c42, #ff6b35);
+    width: 22px;
+    border-radius: 4px;
+  }
+
+  /* ===== Contact ===== */
+  .contact-card {
+    background: rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 22px 18px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.18);
+  }
+
+  .contact-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 18px;
+    letter-spacing: 2px;
+  }
+
+  .contact-title::before,
+  .contact-title::after {
+    content: "\2014";
+    margin: 0 8px;
+    opacity: 0.5;
+  }
+
+  .contact-body {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .contact-info { flex: 1; min-width: 0; }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    color: rgba(255,255,255,0.95);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .contact-item:last-child { margin-bottom: 0; }
+
+  .contact-item .icon {
+    width: 20px;
+    margin-right: 8px;
+    margin-top: 1px;
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .contact-item .label {
+    font-weight: 600;
+    color: #ffd700;
+    min-width: 42px;
+    flex-shrink: 0;
+  }
+
+  .contact-item a {
+    color: rgba(255,255,255,0.95);
+    text-decoration: none;
+  }
+
+  .contact-item a:active { opacity: 0.7; }
+
+  .contact-qr {
+    flex-shrink: 0;
+    width: 96px;
+    text-align: center;
+  }
+
+  .contact-qr img {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+    border: 2px solid rgba(255,255,255,0.2);
+  }
+
+  .contact-qr .qr-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 4px;
+  }
+
+  /* ===== Modal ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+
+  .modal-box {
+    background: #fff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+    flex-shrink: 0;
+  }
+
+  .modal-header h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #333;
+  }
+
+  .modal-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #f5f5f5;
+    border-radius: 50%;
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-close:active { background: #eee; }
+
+  .modal-body {
+    overflow-y: auto;
+    padding: 20px;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.8;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-body h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+    margin: 16px 0 8px;
+  }
+
+  .modal-body h4:first-child { margin-top: 0; }
+
+  .modal-body .contract-title {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 800;
+    color: #222;
+    margin-bottom: 16px;
+  }
+
+  /* ===== Photo Viewer ===== */
+  .photo-viewer {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .photo-viewer img {
+    max-width: 95%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+
+  /* ===== Signature ===== */
+  .sign-area {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+  }
+
+  .sign-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  #signCanvas {
+    width: 100%;
+    height: 120px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    background: #fafafa;
+    touch-action: none;
+  }
+
+  .sign-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+
+  .sign-clear {
+    font-size: 13px;
+    color: #999;
+    background: none;
+    border: 1px solid #ddd;
+    padding: 6px 16px;
+    border-radius: 16px;
+    cursor: pointer;
+  }
+
+  .sign-clear:active { background: #f5f5f5; }
+
+  .footer {
+    text-align: center;
+    color: rgba(255,255,255,0.35);
+    font-size: 12px;
+    padding: 20px 0 28px;
+    background: #4c71eb;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="bg-header">
+    <img src="imgs/bg.png" alt="大众驾校">
+    <div class="logo"><span>大众驾校</span></div>
+    <div class="hero-text">
+      <h1>2026，大学生特惠<br>轻松学车到大众</h1>
+    </div>
+  </div>
+
+  <div class="content-area">
+
+    <div class="section">
+      <div class="section-tab"><span>活动详情</span></div>
+      <div class="card">
+        <div class="pkg-tabs">
+          <div class="pkg-tab active" data-pkg="0" onclick="switchPkg(0)">先培后付班</div>
+          <div class="pkg-tab" data-pkg="1" onclick="switchPkg(1)">一费到底班</div>
+        </div>
+
+        <div class="pkg-panel active" id="pkg0">
+          <div class="price-block">
+            <div class="line1">先培后付 · 超值之选</div>
+            <div class="price-row">
+              <span class="currency">¥</span>
+              <span class="amount">2980</span>
+            </div>
+          </div>
+          <div class="badge-row">
+            <span class="badge">初考费</span>
+            <span class="badge">初训费</span>
+            <span class="badge">补考费</span>
+            <span class="badge">补训费</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="highlight-row">
+            <div class="text">先考证 后缴费</div>
+            <div class="sub">拿到驾照再付款 · 零风险 · 无隐形收费</div>
+          </div>
+        </div>
+
+        <div class="pkg-panel" id="pkg1">
+          <div class="price-block">
+            <div class="line1">一费到底 · 全程无忧</div>
+            <div class="price-row">
+              <span class="currency">¥</span>
+              <span class="amount">3480</span>
+            </div>
+          </div>
+          <div class="badge-row">
+            <span class="badge">初考费</span>
+            <span class="badge">初训费</span>
+            <span class="badge">补考费</span>
+            <span class="badge">补训费</span>
+            <span class="badge">考场模拟费</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="highlight-row">
+            <div class="text">先考证 后缴费</div>
+            <div class="sub">拿到驾照再付款 · 零风险 · 无隐形收费</div>
+          </div>
+        </div>
+
+        <div class="card-divider"></div>
+        <div class="rule-block">
+          <div class="rule-title">活动规则</div>
+          <div class="rule-item">报名预付 <strong>¥100</strong> 即可锁定优惠名额</div>
+          <a class="contract-btn" href="javascript:void(0)" onclick="document.getElementById('contractModal').style.display='flex'">
+            <span class="contract-icon">&#x1F4C4;</span> 查看培训服务合同
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-tab"><span>驾校图册</span></div>
+      <div class="card" style="padding: 16px;">
+        <div class="carousel" id="carousel">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide"><img src="imgs/photo0.jpg" alt="驾校实景" onclick="showPhoto(this.src)"></div>
+            <div class="carousel-slide"><img src="imgs/photo1.jpg" alt="驾校实景" onclick="showPhoto(this.src)"></div>
+            <div class="carousel-slide"><img src="imgs/photo2.jpg" alt="驾校实景" onclick="showPhoto(this.src)"></div>
+            <div class="carousel-slide"><img src="imgs/photo3.jpg" alt="驾校实景" onclick="showPhoto(this.src)"></div>
+          </div>
+        </div>
+        <div class="carousel-dots" id="carouselDots">
+          <div class="dot active" data-i="0"></div>
+          <div class="dot" data-i="1"></div>
+          <div class="dot" data-i="2"></div>
+          <div class="dot" data-i="3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="contact-card">
+        <div class="contact-title">联系我们</div>
+        <div class="contact-body">
+          <div class="contact-info">
+            <div class="contact-item">
+              <span class="icon">&#x1F464;</span>
+              <span><span class="label">联系人</span> 罗校长</span>
+            </div>
+            <div class="contact-item">
+              <span class="icon">&#x1F4DE;</span>
+              <span><span class="label">电话</span> <a href="tel:19173118237">19173118237</a></span>
+            </div>
+            <div class="contact-item">
+              <span class="icon">&#x260E;&#xFE0F;</span>
+              <span><span class="label">座机</span> <a href="tel:073178181828">0731-78181828</a></span>
+            </div>
+            <div class="contact-item">
+              <span class="icon">&#x1F4CD;</span>
+              <span><span class="label">地址</span> <a href="https://surl.amap.com/ZTi0SG1u6Bm" target="_blank">湖南省长沙市宁乡市<br>原宁乡汽车东站</a></span>
+            </div>
+          </div>
+          <div class="contact-qr">
+            <img src="imgs/qrcode.jpg" alt="收款二维码">
+            <div class="qr-label">扫码缴费</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">大众驾校 · 您身边的学车专家</div>
+
+</div>
+
+<div class="photo-viewer" id="photoViewer" onclick="this.style.display='none'">
+  <img id="photoViewerImg" src="" alt="查看大图">
+</div>
+
+<div class="modal-overlay" id="contractModal" onclick="if(event.target===this)this.style.display='none'">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>培训服务合同</h3>
+      <button class="modal-close" onclick="document.getElementById('contractModal').style.display='none'">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="contract-title">机动车驾驶员培训服务合同</div>
+
+      <p><strong>甲方:</strong> _______________<br>
+      <strong>乙方(学员):</strong> _______________<br>
+      <strong>身份证:</strong> _______________<br>
+      <strong>联系电话:</strong> _______________ <strong>紧急联系人电话：</strong>_______________<br>
+      <strong>与之关系：</strong>_______________</p>
+
+      <p>根据《中华人民共和国民法典》等有关法律法规政策的规定,甲、乙双方在自愿、平等的基础上,经协商,就有关机动车驾驶培训相关事宜达成如下协议：</p>
+
+      <p><strong>合同摘要：</strong>乙方自愿报名至甲方驾校报名点缴纳学费及相关费用参加机动车驾驶证的考前培训,乙方完成报名合同签订等培训前的手续后，甲方按时将乙方申报的准驾车型提供办理相关部门注册、送档、实际操作培训等服务。</p>
+
+      <p>本合同中提及的驾驶培训服务及收费内容均指"先培后付尊享班"。</p>
+      <p><strong>名词定义：</strong>科目三考试通过则视为"取得驾驶证"</p>
+
+      <h4>一、培训报名费用及其他相关费用</h4>
+      <p><strong>报名服务费:</strong>甲乙双方均确认,乙方所报班型为:先培后付尊享班，班型为驾校一费制班。乙方在甲方完成报名、缴费注册等手续后，按照甲方申报的准驾车型，提供驾驶理论及实际操作培训服务。甲方向乙方收取培训费、考试费（当前实收 620 元，剩余学费可在科目三考试通过后三日内履行付清余款 2060 元的义务）。</p>
+
+      <p>此班型应收费用为税前价格，包含以下费用：</p>
+      <p>1、初考考试费510元（其中科一50元、科二200元、科三260元）。<br>
+      2、培训大纲规定学时各科目的培训费。<br>
+      3、代收代缴费用：工本费10元。<br>
+      4、包含科目二科目三补训费、空调费、意外险、油费。<br>
+      5、所有费用通过智校乐APP平台进行支付,智校乐app是本合同内所有缴费唯一通道。交完学费后，驾校不再收取任何费用直到拿到驾驶证（除医院驾驶员体检费用30元、计时培训打卡费100元、科目二科目三不限次数模拟考场各300元（共计730元）及补考费外）。<br>
+      6、此班型包含的费用均为打包项目，不可拆开计算。</p>
+
+      <h4>二、报名班型缴费方式及相关约定</h4>
+      <p>乙方选择"先培后付尊享班型"的，须按照此项约定缴费：科目三考试通过后三天内一次性通过"智校乐"平台向甲方缴纳所选车型剩余报名培训费用 2060 元。如乙方在签订本合同半年内未通过科目三考试，须通过"智校乐"平台向甲方缴纳所有学费尾款。</p>
+
+      <h4>三、甲方的权利和义务</h4>
+      <p>1、甲方应当负责对乙方建立完整的学员档案，档案保存期限不少于4年。<br>
+      2、甲方应根据国家《机动车驾驶培训教学与考试大纲》规定的教学项目、课时对乙方进行培训。<br>
+      3、乙方除了支付本合同约定的费用外，甲方不再向乙方收取其他任何费用。<br>
+      4、依照相关部门的规定，甲方有权在培训过程中对乙方进行指纹采集、拍照验证及录像备案。</p>
+
+      <h4>四、乙方的权利和义务</h4>
+      <p>1、乙方有预约培训时间和选择教练员的权力。<br>
+      2、乙方有权对甲方不按教学大纲进行培训的行为进行投诉。<br>
+      3、乙方有权对教练员索取、收受学员财物或谋取其他利益等违规行为进行举报（证实拿一返三）。<br>
+      4、甲方不履行本合同或有严重损害乙方利益的行为，乙方有权向甲方解除合同。<br>
+      5、乙方应遵守预约培训时间、预约各科考试时间。<br>
+      6、乙方须严格遵守交通法规和培训规程。</p>
+
+      <h4>五、培训条款</h4>
+      <p>1、根据乙方需求，甲方要合理安排乙方的培训时间。<br>
+      2、合同签订后，因乙方本人违约、涉毒、身体原因导致不能继续培训等情形的，甲方不需退还乙方所交款项。<br>
+      3、乙方在没有把握参加考试前可拒绝约考。</p>
+
+      <h4>六、退学、退费和转学条款</h4>
+      <p>1、先培后付尊享班型学员签订合同报名后，不予退还所缴费用。<br>
+      2、已在交警部门注册的或已参加科目一考试的，乙方需补缴600元给甲方。<br>
+      3、已参加实操科目二培训或考试的，乙方需补缴1580元。<br>
+      4、已参加实操科目三培训或考试的，需向驾校补缴2060元。</p>
+
+      <h4>七、违约责任</h4>
+      <p>1、因甲方的车辆、设备设施等管理方面的原因造成不能正常培训的，甲方为乙方免费提供等额的培训学时。<br>
+      2、乙方因自身原因自科目一考试合格之日起三年内未完成所有科目考试的，本合同自然终止。</p>
+
+      <h4>八、合同争议处理</h4>
+      <p>如发生争议双方可协商解决，也可向机动车驾驶培训行业管理部门申请调解，调解不成可向有管辖权的人民法院起诉。</p>
+
+      <h4>九、其他</h4>
+      <p>1、本合同自双方签字盖章后生效。<br>
+      2、本合同为电子商务合同，与纸质合同具备同等法律效力。<br>
+      3、特别说明：本电子合同打印后再修改、签字、盖章的，均为无效合同。</p>
+
+      <p style="margin-top:20px;text-align:center;color:#999;">以上协议经本人认真阅读无异议</p>
+
+      <div class="sign-area">
+        <div class="sign-label">乙方签字：</div>
+        <canvas id="signCanvas" width="360" height="120"></canvas>
+        <div class="sign-actions">
+          <button class="sign-clear" onclick="clearSign()">清除重签</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var signCtx, signDrawing = false;
+function initSign() {
+  var c = document.getElementById('signCanvas');
+  if (!c) return;
+  var rect = c.getBoundingClientRect();
+  c.width = rect.width * 2;
+  c.height = rect.height * 2;
+  signCtx = c.getContext('2d');
+  signCtx.scale(2, 2);
+  signCtx.strokeStyle = '#333';
+  signCtx.lineWidth = 2;
+  signCtx.lineCap = 'round';
+  signCtx.lineJoin = 'round';
+
+  function pos(e) {
+    var t = e.touches ? e.touches[0] : e;
+    var r = c.getBoundingClientRect();
+    return { x: t.clientX - r.left, y: t.clientY - r.top };
+  }
+
+  c.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    signDrawing = true;
+    var p = pos(e);
+    signCtx.beginPath();
+    signCtx.moveTo(p.x, p.y);
+  });
+  c.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    if (!signDrawing) return;
+    var p = pos(e);
+    signCtx.lineTo(p.x, p.y);
+    signCtx.stroke();
+  });
+  c.addEventListener('touchend', function() { signDrawing = false; });
+
+  c.addEventListener('mousedown', function(e) {
+    signDrawing = true;
+    var p = pos(e);
+    signCtx.beginPath();
+    signCtx.moveTo(p.x, p.y);
+  });
+  c.addEventListener('mousemove', function(e) {
+    if (!signDrawing) return;
+    var p = pos(e);
+    signCtx.lineTo(p.x, p.y);
+    signCtx.stroke();
+  });
+  c.addEventListener('mouseup', function() { signDrawing = false; });
+}
+
+function clearSign() {
+  var c = document.getElementById('signCanvas');
+  if (signCtx) signCtx.clearRect(0, 0, c.width, c.height);
+}
+
+var signInited = false;
+var origOpen = document.getElementById('contractModal');
+new MutationObserver(function() {
+  if (origOpen.style.display === 'flex' && !signInited) {
+    signInited = true;
+    setTimeout(initSign, 100);
+  }
+}).observe(origOpen, { attributes: true, attributeFilter: ['style'] });
+
+function switchPkg(idx) {
+  document.querySelectorAll('.pkg-tab').forEach(function(t) {
+    t.classList.toggle('active', +t.dataset.pkg === idx);
+  });
+  document.querySelectorAll('.pkg-panel').forEach(function(p, i) {
+    p.classList.toggle('active', i === idx);
+  });
+}
+
+function showPhoto(src) {
+  var viewer = document.getElementById('photoViewer');
+  document.getElementById('photoViewerImg').src = src;
+  viewer.style.display = 'flex';
+}
+
+(function() {
+  var track = document.getElementById('carouselTrack');
+  var dots = document.querySelectorAll('#carouselDots .dot');
+  var total = dots.length;
+  var cur = 0;
+  var startX = 0, dx = 0, dragging = false;
+
+  function goTo(i) {
+    cur = (i + total) % total;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dots.forEach(function(d, idx) {
+      d.classList.toggle('active', idx === cur);
+    });
+  }
+
+  dots.forEach(function(d) {
+    d.addEventListener('click', function() { goTo(+d.dataset.i); });
+  });
+
+  track.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+    dragging = true;
+    track.style.transition = 'none';
+  }, { passive: true });
+
+  track.addEventListener('touchmove', function(e) {
+    if (!dragging) return;
+    dx = e.touches[0].clientX - startX;
+    var offset = -(cur * track.parentElement.offsetWidth) + dx;
+    track.style.transform = 'translateX(' + offset + 'px)';
+  }, { passive: true });
+
+  track.addEventListener('touchend', function() {
+    dragging = false;
+    track.style.transition = 'transform 0.35s ease';
+    if (dx < -40) goTo(cur + 1);
+    else if (dx > 40) goTo(cur - 1);
+    else goTo(cur);
+    dx = 0;
+  });
+
+  setInterval(function() { if (!dragging) goTo(cur + 1); }, 4000);
+})();
+</script>
+</body>
+</html>
